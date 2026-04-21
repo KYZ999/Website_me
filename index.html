@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravidu Gajendra | FiveM & Discord Developer</title>
+    <meta name="description" content="Portfolio of Ravidu Gajendra, a developer specializing in FiveM scripts, server development, and advanced Discord bots.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Background Image -->
+    <div class="bg-image"></div>
+
+    <!-- Background Grid -->
+    <div class="bg-grid"></div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gradient-text">RG</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h3 class="glow-text">Hello, I'm</h3>
+            <h1 class="name-title">Ravidu Gajendra</h1>
+            <h2 class="typing-text">FiveM & Discord Developer</h2>
+            <p class="tagline">Building powerful servers, scripts, and automation systems</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn primary-btn">View Projects</a>
+                <a href="#contact" class="btn secondary-btn">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section-padding">
+        <div class="container glass-panel">
+            <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a passionate developer specializing in building custom, high-performance experiences for gaming communities and automation systems. With a strong foundation in backend architecture and user interface design, I bridge the gap between functionality and aesthetics.</p>
+                </div>
+                <div class="skills-container">
+                    <h3>Core Technologies</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item"><i class="fa-brands fa-js"></i> JavaScript</div>
+                        <div class="skill-item"><i class="fa-brands fa-node"></i> Node.js</div>
+                        <div class="skill-item"><i class="fa-solid fa-code"></i> Lua</div>
+                        <div class="skill-item"><i class="fa-brands fa-discord"></i> Discord.js</div>
+                        <div class="skill-item"><i class="fa-solid fa-server"></i> FiveM Frameworks</div>
+                        <div class="skill-item"><i class="fa-solid fa-database"></i> SQL / NoSQL</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section-padding">
+        <h2 class="section-title">My <span class="gradient-text">Services</span></h2>
+        <div class="container services-grid">
+            <div class="service-card glass-panel">
+                <div class="icon-wrapper"><i class="fa-solid fa-gamepad"></i></div>
+                <h3>FiveM Script Development</h3>
+                <p>Custom Lua scripts tailored to your server's needs. From economy systems to complex minigames and custom frameworks.</p>
+            </div>
+            <div class="service-card glass-panel">
+                <div class="icon-wrapper"><i class="fa-brands fa-discord"></i></div>
+                <h3>Discord Bot Development</h3>
+                <p>Advanced, fully automated Discord bots built with Node.js and Discord.js. Moderation, logging, ticketing, and API integration.</p>
+            </div>
+            <div class="service-card glass-panel">
+                <div class="icon-wrapper"><i class="fa-solid fa-server"></i></div>
+                <h3>Server Optimization</h3>
+                <p>Comprehensive performance profiling and resource optimization for FiveM servers to ensure lag-free, 60+ FPS gameplay.</p>
+            </div>
+            <div class="service-card glass-panel">
+                <div class="icon-wrapper"><i class="fa-solid fa-palette"></i></div>
+                <h3>UI/UX for Game Servers</h3>
+                <p>Sleek, modern, and responsive NUI (HTML/CSS/JS) interfaces that elevate the visual quality of your server.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Skills Highlight -->
+    <section class="features section-padding">
+        <div class="container features-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h4>Secure Code</h4>
+                <p>Exploit-resistant implementations</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-bolt"></i>
+                <h4>High Performance</h4>
+                <p>Optimized 0.00ms resmon scripts</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <h4>Scalable Systems</h4>
+                <p>Built to handle thousands of users</p>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h4>Clean UI</h4>
+                <p>Modern and intuitive interfaces</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section-padding">
+        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+        <div class="container projects-grid">
+            <div class="project-card glass-panel">
+                <div class="project-img">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Advanced Server Panel</h3>
+                    <p>A full-stack web dashboard allowing real-time management of game server resources, players, and live logs.</p>
+                    <div class="tags">
+                        <span>Node.js</span><span>Vue</span><span>WebSocket</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card glass-panel">
+                <div class="project-img">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Automated Tebex Delivery</h3>
+                    <p>Seamless integration between Tebex checkout and in-game delivery, fully synchronized with Discord roles.</p>
+                    <div class="tags">
+                        <span>API</span><span>Lua</span><span>Discord.js</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card glass-panel">
+                <div class="project-img">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Dynamic Server Status Bot</h3>
+                    <p>Discord bot featuring auto-updating embed channels with live player counts, server map, and dynamic voice channels.</p>
+                    <div class="tags">
+                        <span>Discord.js</span><span>FiveM API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section-padding">
+        <div class="container glass-panel contact-container">
+            <div class="contact-info">
+                <h2 class="section-title">Let's build something <span class="gradient-text">powerful</span></h2>
+                <p>Looking for a custom script, a discord bot, or a complete server setup? Let's talk.</p>
+                <div class="contact-links">
+                    <a href="#" class="contact-link"><i class="fa-brands fa-discord"></i> ravi4_x</a>
+                    <a href="mailto:hello@ravidu.dev" class="contact-link"><i class="fa-solid fa-envelope"></i> hello@ravidu.dev</a>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="input-group">
+                    <input type="text" id="name" required placeholder="Your Name">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" required placeholder="Your Email">
+                </div>
+                <div class="input-group">
+                    <textarea id="message" rows="5" required placeholder="Project Details"></textarea>
+                </div>
+                <button type="submit" class="btn primary-btn submit-btn">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="gradient-text">RG</span>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-discord"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Ravidu Gajendra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
