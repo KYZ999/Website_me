@@ -3,244 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ravidu Gajendra | Visionary Developer</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>RAVIDU.SYS — Developer OS</title>
+    <meta name="description" content="Ravidu Gajendra — Elite FiveM, Discord Bot & Web Developer. Premium digital solutions.">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="cyber-loader">
-            <div class="loader-scanner"></div>
-            <span class="loader-text">SYSTEM.BOOT()</span>
-            <div class="loader-bar"><div class="loader-progress"></div></div>
+
+    <!-- ===================== BOOT SEQUENCE ===================== -->
+    <div id="boot-screen">
+        <div class="boot-content">
+            <div class="boot-logo">
+                <span class="boot-r">R</span><span class="boot-dot">.</span><span class="boot-sys">SYS</span>
+            </div>
+            <div class="boot-lines" id="boot-lines"></div>
+            <div class="boot-progress-bar"><div class="boot-progress-fill" id="boot-fill"></div></div>
+            <div class="boot-status" id="boot-status">INITIALIZING CORE SYSTEMS...</div>
         </div>
     </div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-crosshair"></div>
+    <!-- ===================== CURSOR ===================== -->
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
 
-    <!-- Background Elements -->
-    <div class="bg-image"></div>
-    <div class="bg-noise"></div>
-    <canvas id="particles-canvas"></canvas>
+    <!-- ===================== HUD OVERLAYS ===================== -->
+    <div class="hud-corner hud-tl"></div>
+    <div class="hud-corner hud-tr"></div>
+    <div class="hud-corner hud-bl"></div>
+    <div class="hud-corner hud-br"></div>
+    <div class="scanline-overlay"></div>
+    <canvas id="matrix-canvas"></canvas>
 
-    <!-- Floating Dock Navbar -->
-    <nav class="floating-dock">
-        <ul class="dock-links">
-            <li data-tooltip="Home"><a href="#home" class="active"><i class="fa-solid fa-house"></i></a></li>
-            <li data-tooltip="About"><a href="#about"><i class="fa-solid fa-user-astronaut"></i></a></li>
-            <li data-tooltip="Services"><a href="#services"><i class="fa-solid fa-microchip"></i></a></li>
-            <li data-tooltip="Work"><a href="#portfolio"><i class="fa-solid fa-layer-group"></i></a></li>
-            <li data-tooltip="Contact"><a href="#contact"><i class="fa-solid fa-satellite-dish"></i></a></li>
+    <!-- ===================== SIDE NAV ===================== -->
+    <nav class="side-nav" id="side-nav">
+        <div class="side-nav-logo">R<span class="text-blue">.</span>G</div>
+        <ul class="side-nav-links">
+            <li><a href="#hero" class="nav-link active" data-label="HOME"><span class="nav-icon"><i class="fa-solid fa-house-chimney"></i></span></a></li>
+            <li><a href="#about" class="nav-link" data-label="ABOUT"><span class="nav-icon"><i class="fa-solid fa-user-astronaut"></i></span></a></li>
+            <li><a href="#services" class="nav-link" data-label="SERVICES"><span class="nav-icon"><i class="fa-solid fa-microchip"></i></span></a></li>
+            <li><a href="#portfolio" class="nav-link" data-label="WORK"><span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span></a></li>
+            <li><a href="#skills" class="nav-link" data-label="SKILLS"><span class="nav-icon"><i class="fa-solid fa-brain"></i></span></a></li>
+            <li><a href="#contact" class="nav-link" data-label="CONTACT"><span class="nav-icon"><i class="fa-solid fa-satellite-dish"></i></span></a></li>
         </ul>
+        <div class="side-nav-status">
+            <div class="status-dot pulse-green"></div>
+            <span>ONLINE</span>
+        </div>
     </nav>
 
-    <div class="main-wrapper">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-bg-text">DEVELOPER</div>
-            <div class="hero-content">
-                <div class="glitch-wrapper">
-                    <h1 class="name-title glitch" data-text="RAVIDU">RAVIDU</h1>
-                    <h1 class="name-title outline-text">GAJENDRA</h1>
+    <!-- ===================== MOBILE HEADER ===================== -->
+    <header class="mobile-header" id="mobile-header">
+        <div class="mobile-logo">R<span class="text-blue">.</span>G</div>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ===================== MOBILE NAV OVERLAY ===================== -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <button class="mobile-nav-close" id="mobile-nav-close"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="#hero" class="mob-link"><i class="fa-solid fa-house-chimney"></i> Home</a></li>
+            <li><a href="#about" class="mob-link"><i class="fa-solid fa-user-astronaut"></i> About</a></li>
+            <li><a href="#services" class="mob-link"><i class="fa-solid fa-microchip"></i> Services</a></li>
+            <li><a href="#portfolio" class="mob-link"><i class="fa-solid fa-layer-group"></i> Work</a></li>
+            <li><a href="#skills" class="mob-link"><i class="fa-solid fa-brain"></i> Skills</a></li>
+            <li><a href="#contact" class="mob-link"><i class="fa-solid fa-satellite-dish"></i> Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main-content">
+
+        <!-- ===== HERO ===== -->
+        <section id="hero" class="section hero-section">
+            <canvas id="hero-canvas"></canvas>
+            <div class="hero-hud-grid">
+                <!-- HUD Data Points -->
+                <div class="hud-data-point hud-dp-1" data-reveal>
+                    <span class="dp-label">STATUS</span>
+                    <span class="dp-value text-blue">ACTIVE</span>
                 </div>
-                <div class="terminal-box">
-                    <div class="terminal-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                        <span class="title">guest@ravidu:~</span>
-                    </div>
-                    <div class="terminal-body">
-                        <p><span class="prompt">$</span> initialize --role "FiveM & Discord Dev"</p>
-                        <p class="output text-electric">> Loading modules: Lua, JS, Node.js...</p>
-                        <p class="output">> Building powerful systems... <span class="blink">_</span></p>
-                    </div>
+                <div class="hud-data-point hud-dp-2" data-reveal>
+                    <span class="dp-label">LOCATION</span>
+                    <span class="dp-value">SRI LANKA</span>
                 </div>
-                <div class="cta-buttons">
-                    <a href="#portfolio" class="btn cyber-btn">Explore Work</a>
-                    <a href="#contact" class="btn cyber-btn-outline">Initialize Contact</a>
+                <div class="hud-data-point hud-dp-3" data-reveal>
+                    <span class="dp-label">SPECIALITY</span>
+                    <span class="dp-value text-blue">FIVEM·BOT·WEB</span>
                 </div>
             </div>
-            <div class="scroll-down-wrapper">
-                <div class="scroll-line"></div>
-                <span>SCROLL TO HACK</span>
+
+            <div class="hero-center">
+                <div class="hero-orbit-wrapper">
+                    <div class="orbit-ring ring-1"></div>
+                    <div class="orbit-ring ring-2"></div>
+                    <div class="orbit-ring ring-3"></div>
+                    <div class="orbit-node node-1"><i class="fa-brands fa-discord"></i></div>
+                    <div class="orbit-node node-2"><i class="fa-solid fa-server"></i></div>
+                    <div class="orbit-node node-3"><i class="fa-solid fa-globe"></i></div>
+                    <div class="orbit-avatar">
+                        <img src="avatar.png" alt="Ravidu" class="avatar-img">
+                    </div>
+                </div>
+
+                <div class="hero-text-block">
+                    <div class="hero-tag">
+                        <div class="tag-dot"></div>
+                        <span>SYSTEM ONLINE — ACCEPTING PROJECTS</span>
+                    </div>
+                    <h1 class="hero-name">
+                        <span class="name-line" data-text="RAVIDU">RAVIDU</span>
+                        <span class="name-line accent-line" data-text="GAJENDRA">GAJENDRA</span>
+                    </h1>
+                    <div class="hero-role-ticker">
+                        <span class="ticker-label">ROLE://</span>
+                        <span class="role-text" id="role-text"></span>
+                        <span class="ticker-cursor">|</span>
+                    </div>
+                    <p class="hero-bio">Elite-tier developer architecting advanced FiveM ecosystems, AI-powered Discord bots, and premium web interfaces that leave competitors behind.</p>
+                    <div class="hero-actions">
+                        <a href="#portfolio" class="btn-primary">
+                            <span class="btn-glow"></span>
+                            <i class="fa-solid fa-eye"></i> EXPLORE WORK
+                        </a>
+                        <a href="#contact" class="btn-ghost">
+                            <i class="fa-solid fa-satellite-dish"></i> OPEN COMMS
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-scroll-indicator">
+                <div class="scroll-line-anim"></div>
+                <span>SCROLL</span>
             </div>
         </section>
 
-        <!-- Bento Grid Layout for Content -->
-        <div class="bento-container">
-            
-            <!-- About Bento -->
-            <section id="about" class="bento-section">
-                <div class="bento-grid">
-                    <div class="bento-card col-span-2 row-span-2 glass-panel tilt-card">
-                        <h2 class="bento-title">WHO AM I</h2>
-                        <p class="bento-desc">A visionary developer architecting high-performance FiveM frameworks, intelligent Discord automation, and ultra-modern web experiences. Bridging the gap between pure logic and stunning aesthetics.</p>
-                        <div class="stats-flex">
-                            <div class="stat-item">
-                                <h3 class="text-electric">5+</h3>
-                                <span>Years Exp</span>
-                            </div>
-                            <div class="stat-item">
-                                <h3 class="text-electric">100+</h3>
-                                <span>Projects</span>
-                            </div>
-                            <div class="stat-item">
-                                <h3 class="text-electric">99%</h3>
-                                <span>Satisfaction</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bento-card glass-panel tilt-card flex-center">
-                        <i class="fa-solid fa-code icon-huge text-electric"></i>
-                        <h3>Full-Stack</h3>
-                    </div>
-                    <div class="bento-card glass-panel tilt-card flex-center">
-                        <i class="fa-solid fa-gamepad icon-huge text-electric"></i>
-                        <h3>FiveM Dev</h3>
+        <!-- ===== ABOUT ===== -->
+        <section id="about" class="section about-section">
+            <div class="section-header" data-reveal>
+                <span class="section-num">01</span>
+                <h2 class="section-title">SYSTEM <span class="text-blue">PROFILE</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-card glass-card" data-reveal>
+                    <div class="card-label">BIOGRAPHY</div>
+                    <p>A relentless builder operating at the intersection of gaming technology and modern web. I create advanced FiveM frameworks, intelligent bots, and digital experiences that look and feel truly premium.</p>
+                    <p>Every project I ship goes through rigorous optimization — because mediocre output is not an option.</p>
+                    <div class="about-badges">
+                        <span class="badge"><i class="fa-solid fa-code"></i> 5+ Years</span>
+                        <span class="badge"><i class="fa-solid fa-check-circle"></i> 100+ Projects</span>
+                        <span class="badge"><i class="fa-solid fa-users"></i> 50+ Clients</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- Services Bento -->
-            <section id="services" class="bento-section">
-                <h2 class="section-title-left">01. <span class="text-electric">SERVICES</span></h2>
-                <div class="bento-grid services-grid">
-                    
-                    <div class="bento-card service-card glass-panel tilt-card">
-                        <div class="card-glow"></div>
-                        <i class="fa-solid fa-server service-icon"></i>
-                        <h3>FiveM Systems</h3>
-                        <p>Custom ESX / QBCore scripts, UI design, optimization, and Tebex integrations.</p>
-                        <div class="tech-tags">
-                            <span>Lua</span><span>React</span><span>SQL</span>
-                        </div>
+                <div class="about-card glass-card" data-reveal>
+                    <div class="card-label">CORE STACK</div>
+                    <div class="tech-hexgrid">
+                        <div class="hex-item"><i class="fa-solid fa-terminal"></i><span>Lua</span></div>
+                        <div class="hex-item"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
+                        <div class="hex-item"><i class="fa-brands fa-node-js"></i><span>Node.js</span></div>
+                        <div class="hex-item"><i class="fa-brands fa-html5"></i><span>HTML/CSS</span></div>
+                        <div class="hex-item"><i class="fa-solid fa-database"></i><span>SQL</span></div>
+                        <div class="hex-item"><i class="fa-solid fa-palette"></i><span>UI Design</span></div>
                     </div>
-
-                    <div class="bento-card service-card glass-panel tilt-card">
-                        <div class="card-glow"></div>
-                        <i class="fa-brands fa-discord service-icon"></i>
-                        <h3>Discord Bots</h3>
-                        <p>Advanced custom bots, ticket management, moderation suites, and logging.</p>
-                        <div class="tech-tags">
-                            <span>Node.js</span><span>Discord.js</span><span>MongoDB</span>
-                        </div>
-                    </div>
-
-                    <div class="bento-card service-card glass-panel tilt-card">
-                        <div class="card-glow"></div>
-                        <i class="fa-solid fa-globe service-icon"></i>
-                        <h3>Web Interfaces</h3>
-                        <p>High-end portfolios, VPS hosting sites, and custom server dashboards.</p>
-                        <div class="tech-tags">
-                            <span>HTML/CSS</span><span>JS</span><span>Tailwind</span>
-                        </div>
-                    </div>
-
                 </div>
-            </section>
-
-            <!-- Portfolio Bento -->
-            <section id="portfolio" class="bento-section">
-                <h2 class="section-title-left">02. <span class="text-electric">ARCHIVES</span></h2>
-                <div class="bento-grid portfolio-grid">
-                    
-                    <div class="bento-card project-card col-span-2 glass-panel group">
-                        <div class="project-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('tech_bg.png')"></div>
-                        <div class="project-content">
-                            <span class="project-tag">Web Dev</span>
-                            <h3>FiveM Store UI</h3>
-                            <p>Premium Tebex alternative script store with advanced interactions.</p>
-                        </div>
-                        <div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="about-stat-strip" data-reveal>
+                    <div class="strip-stat">
+                        <div class="strip-num" data-count="5">0</div>
+                        <div class="strip-plus">+</div>
+                        <div class="strip-label">Years Active</div>
                     </div>
-
-                    <div class="bento-card project-card glass-panel group">
-                        <div class="project-bg" style="background-color: #050a15"></div>
-                        <div class="project-content">
-                            <span class="project-tag">Discord</span>
-                            <h3>Aura Bot</h3>
-                            <p>Multipurpose advanced automation bot.</p>
-                        </div>
+                    <div class="strip-divider"></div>
+                    <div class="strip-stat">
+                        <div class="strip-num" data-count="100">0</div>
+                        <div class="strip-plus">+</div>
+                        <div class="strip-label">Projects Shipped</div>
                     </div>
-
-                    <div class="bento-card project-card glass-panel group">
-                        <div class="project-bg" style="background-color: #02050a"></div>
-                        <div class="project-content">
-                            <span class="project-tag">FiveM</span>
-                            <h3>Next-Gen HUD</h3>
-                            <p>Optimized reactive HUD.</p>
-                        </div>
+                    <div class="strip-divider"></div>
+                    <div class="strip-stat">
+                        <div class="strip-num" data-count="50">0</div>
+                        <div class="strip-plus">+</div>
+                        <div class="strip-label">Happy Clients</div>
                     </div>
-
-                    <div class="bento-card project-card col-span-2 glass-panel group">
-                        <div class="project-bg" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('tech_bg.png')"></div>
-                        <div class="project-content">
-                            <span class="project-tag">Hosting</span>
-                            <h3>VPS Platform</h3>
-                            <p>Sleek, futuristic UI for a modern hosting company.</p>
-                        </div>
-                        <div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="strip-divider"></div>
+                    <div class="strip-stat">
+                        <div class="strip-num" data-count="99">0</div>
+                        <div class="strip-plus">%</div>
+                        <div class="strip-label">Satisfaction</div>
                     </div>
-
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Contact Bento -->
-            <section id="contact" class="bento-section">
-                <h2 class="section-title-left">03. <span class="text-electric">TRANSMISSION</span></h2>
-                <div class="bento-grid contact-grid">
-                    
-                    <div class="bento-card contact-form-card col-span-2 glass-panel">
-                        <form id="contactForm" class="cyber-form">
-                            <div class="form-row">
-                                <div class="input-container">
-                                    <input type="text" required>
-                                    <label>CALL_SIGN // Name</label>
-                                </div>
-                                <div class="input-container">
-                                    <input type="email" required>
-                                    <label>COMM_LINK // Email</label>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <select required>
-                                    <option value="" disabled selected hidden>SELECT_PROTOCOL // Service</option>
-                                    <option value="fivem">FiveM Scripting</option>
-                                    <option value="discord">Discord Bot</option>
-                                    <option value="website">Web Development</option>
-                                </select>
-                            </div>
-                            <div class="input-container">
-                                <textarea required rows="3"></textarea>
-                                <label>DATA_PACKET // Message</label>
-                            </div>
-                            <button type="submit" class="btn cyber-btn w-full">INITIATE UPLOAD</button>
-                        </form>
-                    </div>
+        <!-- ===== SERVICES ===== -->
+        <section id="services" class="section services-section">
+            <div class="section-header" data-reveal>
+                <span class="section-num">02</span>
+                <h2 class="section-title">CAPABILITY <span class="text-blue">MATRIX</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="services-grid">
 
-                    <div class="bento-card social-card glass-panel flex-center tilt-card">
-                        <a href="#" class="https://discord.gg/KzurvqzQRa"><i class="fa-brands fa-discord"></i><span>DISCORD</span></a>
+                <div class="service-panel glass-card" data-reveal>
+                    <div class="service-index">01</div>
+                    <div class="service-top">
+                        <div class="service-icon-wrap">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div>
                     </div>
-                    <div class="bento-card social-card glass-panel flex-center tilt-card">
-                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i><span>TELEGRAM</span></a>
+                    <h3>FiveM Development</h3>
+                    <p>Custom ESX / QBCore scripting, reactive NUI interfaces, server optimization, Tebex store setup — full-stack GTA multiplayer.</p>
+                    <ul class="service-bullets">
+                        <li>Custom Framework Scripts</li>
+                        <li>NUI / React HUDs</li>
+                        <li>Server Config & Optimization</li>
+                        <li>Tebex Store Design</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span>Lua</span><span>HTML/CSS</span><span>SQL</span>
                     </div>
-
                 </div>
-            </section>
 
-            <footer>
-                <p>SYS.LOG // © 2026 RAVIDU GAJENDRA. ALL SYSTEMS ONLINE.</p>
-            </footer>
+                <div class="service-panel glass-card featured-service" data-reveal>
+                    <div class="featured-badge">POPULAR</div>
+                    <div class="service-index">02</div>
+                    <div class="service-top">
+                        <div class="service-icon-wrap">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                        <div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                    <h3>Discord Systems</h3>
+                    <p>Enterprise-grade custom bots with ticket systems, auto moderation, logging, role automation, and sleek dashboards.</p>
+                    <ul class="service-bullets">
+                        <li>Fully Custom Bots</li>
+                        <li>Ticket & Support Systems</li>
+                        <li>Auto Moderation Suite</li>
+                        <li>Detailed Logging</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span>Node.js</span><span>Discord.js</span><span>MongoDB</span>
+                    </div>
+                </div>
 
-        </div>
-    </div>
+                <div class="service-panel glass-card" data-reveal>
+                    <div class="service-index">03</div>
+                    <div class="service-top">
+                        <div class="service-icon-wrap">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>High-end portfolio sites, hosting platforms, script stores, and custom dashboards — pixel-perfect and fully responsive.</p>
+                    <ul class="service-bullets">
+                        <li>Portfolio & Landing Pages</li>
+                        <li>Hosting / VPS Sites</li>
+                        <li>Script Store Websites</li>
+                        <li>Custom Admin Dashboards</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span>HTML/CSS</span><span>JavaScript</span><span>Tailwind</span>
+                    </div>
+                </div>
+
+                <div class="service-panel glass-card" data-reveal>
+                    <div class="service-index">04</div>
+                    <div class="service-top">
+                        <div class="service-icon-wrap">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                        <div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                    <h3>FiveM MLO Design</h3>
+                    <p>Custom 3D interiors, optimized mapping, and high-quality textures to bring unique physical locations to your server.</p>
+                    <ul class="service-bullets">
+                        <li>Custom Interior Creation</li>
+                        <li>Texture Optimization</li>
+                        <li>YMAP / YTYP Editing</li>
+                        <li>Collision Fixes</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span>3ds Max</span><span>CodeWalker</span><span>Blender</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== PORTFOLIO ===== -->
+        <section id="portfolio" class="section portfolio-section">
+            <div class="section-header" data-reveal>
+                <span class="section-num">03</span>
+                <h2 class="section-title">PROJECT <span class="text-blue">ARCHIVES</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="portfolio-grid">
+
+                <div class="port-card port-large glass-card" data-reveal>
+                    <div class="port-img" style="background: linear-gradient(135deg, #0a0a1a, #001a40)">
+                        <div class="port-icon-large"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <div class="port-overlay">
+                            <a href="#" class="port-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <span class="port-cat">WEB DEV</span>
+                        <h3>FiveM Store Platform</h3>
+                        <p>Premium Tebex-alternative script store with advanced cart, licensing, and a stunning storefront UI.</p>
+                        <div class="port-tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                    </div>
+                </div>
+
+                <div class="port-card glass-card" data-reveal>
+                    <div class="port-img" style="background: linear-gradient(135deg, #050010, #0a0030)">
+                        <div class="port-icon-large"><i class="fa-brands fa-discord"></i></div>
+                        <div class="port-overlay">
+                            <a href="#" class="port-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <span class="port-cat">DISCORD</span>
+                        <h3>Aura Bot</h3>
+                        <p>Advanced multi-purpose moderation and community bot.</p>
+                        <div class="port-tech"><span>Node.js</span><span>Discord.js</span></div>
+                    </div>
+                </div>
+
+                <div class="port-card glass-card" data-reveal>
+                    <div class="port-img" style="background: linear-gradient(135deg, #0d0000, #1a0020)">
+                        <div class="port-icon-large"><i class="fa-solid fa-cloud"></i></div>
+                        <div class="port-overlay">
+                            <a href="#" class="port-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <span class="port-cat">WEB DEV</span>
+                        <h3>VPS Hosting Site</h3>
+                        <p>Sleek futuristic hosting company landing page with pricing.</p>
+                        <div class="port-tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                    </div>
+                </div>
+
+                <div class="port-card port-large glass-card" data-reveal>
+                    <div class="port-img" style="background: linear-gradient(135deg, #001010, #00201a)">
+                        <div class="port-icon-large"><i class="fa-solid fa-gamepad"></i></div>
+                        <div class="port-overlay">
+                            <a href="#" class="port-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <span class="port-cat">FIVEM</span>
+                        <h3>Custom HUD System</h3>
+                        <p>Optimized, reactive, animated next-gen FiveM HUD with health, armor, vehicle, minimap extensions.</p>
+                        <div class="port-tech"><span>Lua</span><span>React</span><span>CSS</span></div>
+                    </div>
+                </div>
+
+                <div class="port-card port-large glass-card" data-reveal>
+                    <div class="port-img" style="background: linear-gradient(135deg, #100a00, #201300)">
+                        <div class="port-icon-large"><i class="fa-solid fa-building"></i></div>
+                        <div class="port-overlay">
+                            <a href="#" class="port-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="port-info">
+                        <span class="port-cat">MLO DESIGN</span>
+                        <h3>Luxury Dealership Interior</h3>
+                        <p>A highly optimized, custom 3D model interior featuring multiple showrooms, custom lighting, and minimal performance impact.</p>
+                        <div class="port-tech"><span>3ds Max</span><span>CodeWalker</span><span>Textures</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== SKILLS ===== -->
+        <section id="skills" class="section skills-section">
+            <div class="section-header" data-reveal>
+                <span class="section-num">04</span>
+                <h2 class="section-title">SKILL <span class="text-blue">ANALYSIS</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-wrapper glass-card" data-reveal>
+                <div class="skills-list">
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">Lua</span>
+                            <span class="skill-pct">95%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-pct">90%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">Node.js</span>
+                            <span class="skill-pct">88%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">HTML / CSS</span>
+                            <span class="skill-pct">92%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">SQL</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name">MLO & Mapping</span>
+                            <span class="skill-pct">87%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" data-width="87%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-radar-placeholder">
+                    <canvas id="radar-canvas" width="300" height="300"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section id="contact" class="section contact-section">
+            <div class="section-header" data-reveal>
+                <span class="section-num">05</span>
+                <h2 class="section-title">OPEN <span class="text-blue">COMMS</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info glass-card" data-reveal>
+                    <div class="contact-tag">READY TO BUILD</div>
+                    <h3>Let's create something <span class="text-blue">extraordinary.</span></h3>
+                    <p>Whether it's a complex FiveM server framework, an intelligent Discord system, or a premium website — reach out and let's discuss your vision.</p>
+                    <div class="contact-direct-links">
+                        <a href="https://discord.com/users/ravi4_x" target="_blank" class="direct-link">
+                            <i class="fa-brands fa-discord"></i>
+                            <div>
+                                <span class="dl-label">Discord</span>
+                                <span class="dl-value">ravi4_x</span>
+                            </div>
+                        </a>
+                        <a href="#" class="direct-link">
+                            <i class="fa-brands fa-telegram"></i>
+                            <div>
+                                <span class="dl-label">Telegram</span>
+                                <span class="dl-value">@ravidugajendra</span>
+                            </div>
+                        </a>
+                        <a href="mailto:contact@ravidugajendra.dev" class="direct-link">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <span class="dl-label">Email</span>
+                                <span class="dl-value">contact@ravidugajendra.dev</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="youtube-link-card">
+                        <i class="fa-brands fa-youtube"></i>
+                        <div>
+                            <span class="yt-name">Mr.Raviya</span>
+                            <a href="https://www.youtube.com/@Mr.Raviya" target="_blank" class="yt-sub-btn">Visit Channel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrap glass-card" data-reveal>
+                    <form id="contactForm" autocomplete="off">
+                        <div class="form-field">
+                            <label>CALL_SIGN</label>
+                            <input type="text" placeholder="Your name" required>
+                        </div>
+                        <div class="form-field">
+                            <label>COMM_LINK</label>
+                            <input type="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-field">
+                            <label>PROTOCOL</label>
+                            <select required>
+                                <option value="" disabled selected>Select service</option>
+                                <option>FiveM Development</option>
+                                <option>Discord Bot</option>
+                                <option>Web Development</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>DATA_PACKET</label>
+                            <textarea rows="4" placeholder="Describe your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">
+                            <span class="btn-glow"></span>
+                            <i class="fa-solid fa-paper-plane"></i> TRANSMIT MESSAGE
+                        </button>
+                        <div class="form-success" id="form-success">
+                            <i class="fa-solid fa-circle-check"></i> Message transmitted successfully!
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-logo">RAVIDU<span class="text-blue">.</span>SYS</div>
+                <p class="footer-copy">© 2026 Ravidu Gajendra — Built with <span class="text-blue">Vision</span> &amp; Precision</p>
+                <div class="footer-links">
+                    <a href="https://www.youtube.com/@Mr.Raviya" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
 
     <script src="app.js"></script>
 </body>
