@@ -1,179 +1,326 @@
-// Preloader
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
+// --- Boot Sequence ---
+const bootScreen = document.getElementById('boot-screen');
+const bootLines = document.getElementById('boot-lines');
+const bootFill = document.getElementById('boot-fill');
+const bootStatus = document.getElementById('boot-status');
+
+const lines = [
+    "> INITIATING RAVIDU.SYS KERNEL...",
+    "> LOADING NEURAL NETWORK WIEGHTS...",
+    "> ESTABLISHING DATABASE CONNECTIONS...",
+    "> BYPASSING SECURITY PROTOCOLS...",
+    "> INJECTING LUA SCRIPTS...",
+    "> MOUNTING REACT COMPONENTS...",
+    "> CALIBRATING DISCORD API WEBHOOKS...",
+    "> SYSTEM READY."
+];
+
+let lineIndex = 0;
+
+function addBootLine() {
+    if (lineIndex < lines.length) {
+        const p = document.createElement('p');
+        p.innerText = lines[lineIndex];
+        bootLines.appendChild(p);
+        
+        const progress = ((lineIndex + 1) / lines.length) * 100;
+        bootFill.style.width = `${progress}%`;
+        
+        lineIndex++;
+        setTimeout(addBootLine, Math.random() * 300 + 100);
+    } else {
+        bootStatus.innerText = "ACCESS GRANTED";
+        bootStatus.style.color = "#00ff66";
         setTimeout(() => {
-            preloader.style.opacity = '0';
-            preloader.style.visibility = 'hidden';
-        }, 1500); // Give the cool boot animation time to show
+            bootScreen.style.opacity = '0';
+            bootScreen.style.visibility = 'hidden';
+            initTypewriter();
+        }, 800);
     }
+}
+
+window.addEventListener('load', () => {
+    setTimeout(addBootLine, 500);
 });
 
-// Custom Crosshair Cursor
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorCrosshair = document.querySelector('.cursor-crosshair');
+// --- Custom Cursor ---
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
 
 window.addEventListener('mousemove', (e) => {
-    if (!cursorDot || !cursorCrosshair) return;
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    cursorCrosshair.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 100, fill: "forwards" });
+    if(!cursorDot || !cursorRing) return;
+    cursorDot.style.left = `${e.clientX}px`;
+    cursorDot.style.top = `${e.clientY}px`;
+    
+    cursorRing.animate({
+        left: `${e.clientX}px`,
+        top: `${e.clientY}px`
+    }, { duration: 150, fill: "forwards" });
 });
 
-// Cursor Interactions
-const interactables = document.querySelectorAll('a, button, .tilt-card, input, textarea, select');
+const interactables = document.querySelectorAll('a, button, input, textarea, select');
 interactables.forEach(el => {
     el.addEventListener('mouseenter', () => {
-        if (!cursorCrosshair) return;
-        cursorCrosshair.style.width = '60px';
-        cursorCrosshair.style.height = '60px';
-        cursorCrosshair.style.borderColor = '#00e5ff';
-        cursorCrosshair.style.transform = 'translate(-50%, -50%) rotate(45deg)';
+        if(cursorRing) {
+            cursorRing.style.width = '50px';
+            cursorRing.style.height = '50px';
+            cursorRing.style.backgroundColor = 'rgba(0, 229, 255, 0.1)';
+        }
     });
     el.addEventListener('mouseleave', () => {
-        if (!cursorCrosshair) return;
-        cursorCrosshair.style.width = '40px';
-        cursorCrosshair.style.height = '40px';
-        cursorCrosshair.style.borderColor = '#0080FF';
-        cursorCrosshair.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+        if(cursorRing) {
+            cursorRing.style.width = '30px';
+            cursorRing.style.height = '30px';
+            cursorRing.style.backgroundColor = 'transparent';
+        }
     });
 });
 
-// Vanilla Tilt Effect for Bento Cards (3D Effect)
-const tiltCards = document.querySelectorAll('.tilt-card');
-tiltCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+// --- Matrix Background Effect ---
+const mxCanvas = document.getElementById('matrix-canvas');
+const mCtx = mxCanvas.getContext('2d');
+mxCanvas.width = window.innerWidth;
+mxCanvas.height = window.innerHeight;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+const fontSize = 14;
+const columns = mxCanvas.width / fontSize;
+const drops = Array.from({length: columns}).fill(1);
 
-        const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
-        const rotateY = ((x - centerX) / centerX) * 10;
+function drawMatrix() {
+    mCtx.fillStyle = 'rgba(2, 2, 5, 0.05)';
+    mCtx.fillRect(0, 0, mxCanvas.width, mxCanvas.height);
+    mCtx.fillStyle = '#00e5ff';
+    mCtx.font = fontSize + 'px monospace';
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    for(let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if(drops[i] * fontSize > mxCanvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+setInterval(drawMatrix, 50);
+
+// --- Hero Typewriter ---
+const roles = ["FIVEM_ARCHITECT", "DISCORD_ENGINEER", "MLO_3D_DESIGNER", "FULL_STACK_DEV"];
+let roleIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const roleEl = document.getElementById('role-text');
+
+function initTypewriter() {
+    if (!roleEl) return;
+    const currentWord = roles[roleIdx];
+    
+    if (isDeleting) {
+        roleEl.innerText = currentWord.substring(0, charIdx - 1);
+        charIdx--;
+    } else {
+        roleEl.innerText = currentWord.substring(0, charIdx + 1);
+        charIdx++;
+    }
+
+    let speed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && charIdx === currentWord.length) {
+        speed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        speed = 500;
+    }
+
+    setTimeout(initTypewriter, speed);
+}
+
+// --- Reveal on Scroll & Progress Bars ---
+const reveals = document.querySelectorAll('[data-reveal]');
+const progressFills = document.querySelectorAll('.skill-bar-fill');
+const numbers = document.querySelectorAll('.strip-num');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            
+            // Check for progress bars inside
+            const bars = entry.target.querySelectorAll('.skill-bar-fill');
+            if(bars.length > 0) {
+                bars.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }
+            // Animate numbers
+            if(entry.target.classList.contains('about-stat-strip')) {
+                numbers.forEach(num => {
+                    if(!num.classList.contains('counted')) {
+                        const target = parseInt(num.getAttribute('data-count'));
+                        let count = 0;
+                        const inc = target / 50;
+                        const updateCount = () => {
+                            count += inc;
+                            if(count < target) {
+                                num.innerText = Math.ceil(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                num.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        num.classList.add('counted');
+                    }
+                });
+            }
+        }
     });
+}, { threshold: 0.15 });
 
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-    });
-});
+reveals.forEach(el => revealObserver.observe(el));
 
-// Floating Dock Scroll active state
-const sections = document.querySelectorAll('section');
-const dockLinks = document.querySelectorAll('.dock-links a');
+// --- Active Nav Tracking ---
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+        if(pageYOffset >= (sectionTop - sectionHeight / 3)){
             current = section.getAttribute('id');
         }
     });
-
-    dockLinks.forEach(link => {
+    
+    navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
+        if(link.getAttribute('href').includes(current)){
             link.classList.add('active');
         }
     });
 });
 
-// Particles System (Cyber grid connection style)
-const canvas = document.getElementById('particles-canvas');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+// --- Mobile Navigation ---
+const hamburger = document.getElementById('hamburger');
+const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+const mobLinks = document.querySelectorAll('.mob-link');
 
-    let particlesArray = [];
-    const mouse = { x: null, y: null, radius: 150 };
-
-    window.addEventListener('mousemove', (event) => {
-        mouse.x = event.x; mouse.y = event.y;
+if(hamburger && mobileNavOverlay && mobileNavClose) {
+    hamburger.addEventListener('click', () => mobileNavOverlay.classList.add('active'));
+    mobileNavClose.addEventListener('click', () => mobileNavOverlay.classList.remove('active'));
+    mobLinks.forEach(link => {
+        link.addEventListener('click', () => mobileNavOverlay.classList.remove('active'));
     });
+}
 
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-            this.color = 'rgba(0, 229, 255, 0.3)'; // Cyan
-        }
-        update() {
-            this.x += this.speedX; this.y += this.speedY;
-            if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-            if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-        }
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
+// --- Contact Form Simulation ---
+const form = document.getElementById('contactForm');
+const successMsg = document.getElementById('form-success');
 
-    function init() {
-        particlesArray = [];
-        let numberOfParticles = (canvas.height * canvas.width) / 12000;
-        for (let i = 0; i < numberOfParticles; i++) particlesArray.push(new Particle());
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
-
-            for (let j = i; j < particlesArray.length; j++) {
-                const dx = particlesArray[i].x - particlesArray[j].x;
-                const dy = particlesArray[i].y - particlesArray[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0, 128, 255, ${0.1 - distance / 1200})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                    ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                    ctx.stroke();
-                }
-            }
-
-            if (mouse.x) {
-                const dx = mouse.x - particlesArray[i].x;
-                const dy = mouse.y - particlesArray[i].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouse.radius) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0, 229, 255, ${0.2 - distance / (mouse.radius * 5)})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        init();
+if(form) {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> TRANSMITTING...';
+        
+        setTimeout(() => {
+            btn.innerHTML = origText;
+            form.reset();
+            successMsg.style.display = 'flex';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+        }, 1500);
     });
+}
+
+// --- Radar Chart (HTML5 Canvas) ---
+const radarCanvas = document.getElementById('radar-canvas');
+if(radarCanvas) {
+    const rCtx = radarCanvas.getContext('2d');
+    const cx = 150, cy = 150, radius = 100;
+    const skills = [
+        {name: "Lua", val: 0.95},
+        {name: "JS", val: 0.90},
+        {name: "Node", val: 0.88},
+        {name: "MLO", val: 0.87},
+        {name: "SQL", val: 0.80},
+        {name: "FiveM", val: 0.95}
+    ];
+    
+    function drawRadar() {
+        rCtx.clearRect(0, 0, 300, 300);
+        
+        // Background Web
+        rCtx.strokeStyle = 'rgba(0, 229, 255, 0.2)';
+        rCtx.lineWidth = 1;
+        for(let i=1; i<=5; i++) {
+            rCtx.beginPath();
+            for(let j=0; j<skills.length; j++) {
+                const angle = (Math.PI * 2 * j) / skills.length - Math.PI/2;
+                const r = radius * (i/5);
+                const x = cx + r * Math.cos(angle);
+                const y = cy + r * Math.sin(angle);
+                if(j===0) rCtx.moveTo(x,y);
+                else rCtx.lineTo(x,y);
+            }
+            rCtx.closePath();
+            rCtx.stroke();
+        }
+        
+        // Lines from center
+        for(let j=0; j<skills.length; j++) {
+            const angle = (Math.PI * 2 * j) / skills.length - Math.PI/2;
+            const x = cx + radius * Math.cos(angle);
+            const y = cy + radius * Math.sin(angle);
+            rCtx.beginPath();
+            rCtx.moveTo(cx, cy);
+            rCtx.lineTo(x, y);
+            rCtx.stroke();
+            
+            // Labels
+            rCtx.fillStyle = '#6b8a9e';
+            rCtx.font = '12px monospace';
+            rCtx.textAlign = 'center';
+            rCtx.fillText(skills[j].name, cx + (radius+20) * Math.cos(angle), cy + (radius+20) * Math.sin(angle) + 4);
+        }
+        
+        // Data shape
+        rCtx.beginPath();
+        for(let j=0; j<skills.length; j++) {
+            const angle = (Math.PI * 2 * j) / skills.length - Math.PI/2;
+            const r = radius * skills[j].val;
+            const x = cx + r * Math.cos(angle);
+            const y = cy + r * Math.sin(angle);
+            if(j===0) rCtx.moveTo(x,y);
+            else rCtx.lineTo(x,y);
+        }
+        rCtx.closePath();
+        rCtx.fillStyle = 'rgba(0, 229, 255, 0.2)';
+        rCtx.fill();
+        rCtx.strokeStyle = '#00e5ff';
+        rCtx.lineWidth = 2;
+        rCtx.stroke();
+        
+        // Points
+        for(let j=0; j<skills.length; j++) {
+            const angle = (Math.PI * 2 * j) / skills.length - Math.PI/2;
+            const r = radius * skills[j].val;
+            const x = cx + r * Math.cos(angle);
+            const y = cy + r * Math.sin(angle);
+            rCtx.beginPath();
+            rCtx.arc(x, y, 4, 0, Math.PI*2);
+            rCtx.fillStyle = '#000';
+            rCtx.fill();
+            rCtx.stroke();
+        }
+    }
+    
+    // Animate radar appearing
+    setTimeout(drawRadar, 1500);
 }
