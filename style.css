@@ -276,6 +276,44 @@ h1, h2, h3, h4 { font-family: var(--font-sans); text-transform: uppercase; lette
 .strip-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-left: 10px; width: min-content; }
 .strip-divider { width: 1px; height: 50px; background: var(--border-color); }
 
+/* Current Clients Section */
+.clients-section { min-height: auto; padding: 60px 8%; }
+.clients-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+.client-card { padding: 35px; position: relative; transition: 0.4s; border-top: 2px solid var(--blue-main); }
+.client-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 30px rgba(0,229,255,0.05); }
+.client-live-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono);
+    font-size: 0.7rem; color: #00ff66; border: 1px solid rgba(0,255,102,0.3);
+    padding: 5px 12px; margin-bottom: 25px; background: rgba(0,255,102,0.05);
+    letter-spacing: 1px;
+}
+.live-dot {
+    width: 7px; height: 7px; background: #00ff66; border-radius: 50%;
+    box-shadow: 0 0 8px #00ff66; animation: pulse 2s infinite;
+}
+.client-top { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+.client-logo-wrap {
+    width: 70px; height: 70px; flex-shrink: 0; position: relative;
+    border: 1px solid var(--blue-main); background: rgba(0,229,255,0.05);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.client-logo { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.client-icon-fallback {
+    display: none; width: 100%; height: 100%;
+    align-items: center; justify-content: center;
+    font-size: 1.6rem; color: var(--blue-main);
+}
+.client-meta h3 { font-size: 1.3rem; margin-bottom: 5px; }
+.client-type { font-family: var(--font-mono); font-size: 0.8rem; color: var(--blue-main); letter-spacing: 1px; }
+.client-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; }
+.client-services { display: flex; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+.client-services span { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+.client-services i { color: var(--blue-main); font-size: 0.7rem; }
+
+@media (max-width: 768px) {
+    .clients-grid { grid-template-columns: 1fr; }
+}
+
 /* Services Section */
 .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 .service-panel { display: flex; flex-direction: column; transition: 0.4s; top: 0; }
